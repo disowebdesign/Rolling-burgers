@@ -1,0 +1,239 @@
+/* ══ menuComida.css — Rolling Stones style ══════════════ */
+
+#view-menu {
+  background: #0d0d0d;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  color: #f0ece0;
+  font-family: 'Oswald', sans-serif;
+}
+
+/* ── HEADER ── */
+.mc-header {
+  background: #0d0d0d;
+  padding: 5.5rem 2rem 2.4rem;
+  position: relative;
+  border-bottom: 4px solid #CC0000;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.mc-header-texture {
+  position: absolute; inset: 0;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 55px, rgba(204,0,0,0.04) 55px, rgba(204,0,0,0.04) 56px);
+  pointer-events: none;
+}
+.mc-eyebrow {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 0.72rem;
+  color: #CC0000;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  position: relative; z-index: 1;
+}
+.mc-title {
+  font-family: 'Permanent Marker', cursive;
+  font-size: clamp(3rem, 13vw, 6.5rem);
+  line-height: 1.05;
+  color: #f0ece0;
+  position: relative; z-index: 1;
+}
+.mc-title span { color: #CC0000; }
+.mc-subtitle {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 0.75rem;
+  color: rgba(240,236,224,0.4);
+  margin-top: 0.6rem;
+  position: relative; z-index: 1;
+}
+
+/* Flechas */
+.mc-arrow {
+  position: absolute;
+  top: 50%; transform: translateY(-50%);
+  width: 42px; height: 42px;
+  background: #1a1a1a;
+  border: 1px solid #CC0000;
+  border-radius: 50%;
+  color: #CC0000;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 2;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+.mc-arrow svg { width: 18px; height: 18px; }
+.mc-arrow--prev { right: 62px; }
+.mc-arrow--next { right: 12px; }
+.mc-arrow:hover { background: #CC0000; color: #f0ece0; transform: translateY(-50%) scale(1.1); }
+.mc-arrow:disabled { opacity: 0.2; pointer-events: none; }
+
+/* Dots */
+.mc-dots {
+  position: absolute;
+  bottom: 1rem; left: 2rem;
+  display: flex; gap: 6px; z-index: 2;
+}
+.mc-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #2a2a2a; border: 1.5px solid #CC0000;
+  cursor: pointer; transition: all 0.2s;
+}
+.mc-dot.active { background: #CC0000; transform: scale(1.3); }
+
+/* ── TRACK BAR ── */
+.mc-track-bar {
+  background: #111;
+  padding: 0.5rem 2rem;
+  display: flex; align-items: center; gap: 0.8rem;
+  border-bottom: 2px solid #CC0000;
+  flex-shrink: 0;
+}
+.mc-track-num {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 0.75rem;
+  color: #CC0000;
+  letter-spacing: 0.2em;
+}
+.mc-track-name {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 1.6rem;
+  color: #f0ece0;
+  letter-spacing: 0.15em;
+  flex: 1;
+}
+.mc-track-total {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 0.75rem;
+  color: #444;
+  letter-spacing: 0.1em;
+}
+
+/* ── STAGE ── */
+.mc-stage-wrap { flex: 1; overflow: hidden; position: relative; }
+.mc-stage { display: flex; width: 400%; height: 100%; will-change: transform; }
+.mc-page { flex: 0 0 25%; height: 100%; overflow-y: auto; overscroll-behavior: contain; }
+.mc-page-inner { padding: 1.6rem 2rem 2rem; }
+
+/* ── CATEGORÍA ── */
+.mc-cat-label {
+  display: flex; align-items: center; gap: 0.7rem;
+  margin-bottom: 1.4rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 2px solid #2a2a2a;
+}
+.mc-cat-icon { font-size: 2rem; line-height: 1; }
+.mc-cat-text {
+  font-family: 'Bebas Neue', cursive;
+  font-size: clamp(2.2rem, 8vw, 4rem);
+  color: #CC0000;
+  letter-spacing: 0.12em;
+}
+
+/* ── GRID ── */
+.mc-items-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 270px), 1fr));
+  gap: 10px;
+}
+
+/* ── ITEM ── */
+.mc-item {
+  background: #161616;
+  border: 1px solid #2a2a2a;
+  border-left: 3px solid #CC0000;
+  padding: 0.95rem 1.1rem;
+  position: relative;
+  transition: background 0.2s, border-left-color 0.2s;
+}
+.mc-item:hover { background: #1c0e0e; border-left-color: #FF3B00; }
+.mc-item--featured {
+  background: #140e00;
+  border-left-color: #FAD06A;
+}
+.mc-item--featured:hover { border-left-color: #FAD06A; background: #1a1100; }
+
+/* Tag */
+.mc-item-tag {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  color: #FAD06A;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+
+/* Header del item */
+.mc-item-header { display: flex; align-items: baseline; gap: 7px; margin-bottom: 6px; }
+
+.mc-item-num {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 0.72rem;
+  color: #444;
+  letter-spacing: 0.05em;
+}
+.mc-item-name {
+  font-family: 'Bebas Neue', cursive;
+  font-size: clamp(1.2rem, 4vw, 1.65rem);
+  letter-spacing: 0.08em;
+  color: #f0ece0;
+  flex: 1; line-height: 1; margin: 0;
+}
+.mc-item-price {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 1.2rem;
+  letter-spacing: 0.05em;
+  color: #CC0000;
+  white-space: nowrap;
+}
+
+/* Descripción — Permanent Marker da el toque manuscrito rockero */
+.mc-item-desc {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 0.68rem;
+  color: #888;
+  line-height: 1.6;
+  margin-bottom: 7px;
+  letter-spacing: 0.01em;
+}
+
+/* Tags */
+.mc-item-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+.mc-tag {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  border: 1px solid #CC0000;
+  color: #CC0000;
+  padding: 1px 8px;
+  text-transform: uppercase;
+}
+.mc-tag--gold { border-color: #FAD06A; color: #FAD06A; }
+
+/* ── SWIPE HINT ── */
+.mc-swipe-hint {
+  text-align: center;
+  padding: 0.6rem;
+  background: #111;
+  border-top: 1px solid #1e1e1e;
+  flex-shrink: 0;
+}
+.mc-swipe-hint span {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 0.68rem;
+  color: #333;
+  letter-spacing: 0.1em;
+}
+
+/* ══ ANIMACIONES ══════════════════════════════════════════ */
+@keyframes mc-catIn   { from { opacity:0; transform:translateX(-28px) } to { opacity:1; transform:translateX(0) } }
+@keyframes mc-itemIn  { from { opacity:0; transform:translateY(22px)  } to { opacity:1; transform:translateY(0) } }
+@keyframes mc-popIn   { from { opacity:0; transform:scale(0.6)        } to { opacity:1; transform:scale(1)      } }
+@keyframes mc-trackIn { from { opacity:0; transform:translateY(-6px)  } to { opacity:1; transform:translateY(0) } }
