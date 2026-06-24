@@ -8,6 +8,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Bebas+Neue&family=Fredoka+One&family=Lilita+One&family=Luckiest+Guy&family=Modak&family=Permanent+Marker&family=Russo+One&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet" />
   <style>
+  /* ══ APP — oculto por CSS hasta que el loader termine
+     Evita el flash que causaba el inline style + GSAP autoAlpha ══ */
+  #app { opacity: 0; visibility: hidden; }
+  #app.is-visible { opacity: 1; visibility: visible; transition: opacity 0.6s ease; }
   /* ══ TOOLTIPS BANDA ══════════════════════════════════════ */
   .band-tooltip {
     position: fixed;
@@ -102,8 +106,29 @@
   .concert-svg image.band-member:hover {
     filter: drop-shadow(0 0 18px rgba(255,59,0,0.7)) brightness(1.1);
   }
+
+  /* ══ WRECKAGE TEXT — animaciones vía IntersectionObserver
+     Los elementos arrancan invisibles y suben al entrar al viewport.
+     NO dependen de GSAP ScrollTrigger, así funcionan en móvil real. ══ */
+  .wh-line,
+  .wreckage-desc,
+  .wreckage-badge,
+  .wreckage-cta {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .wh-line:nth-child(2) { transition-delay: 0.1s; }
+  .wh-line:nth-child(3) { transition-delay: 0.2s; }
+  .wreckage-desc        { transition-delay: 0.15s; }
+  .wreckage-cta         { transition-delay: 0.25s; }
+
+  .wt-visible {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
   </style>
-    <script type="module" crossorigin src="/Rolling-burgers/assets/index-unFm5s97.js"></script>
+    <script type="module" crossorigin src="/Rolling-burgers/assets/index-DgRbRepi.js"></script>
     <link rel="stylesheet" crossorigin href="/Rolling-burgers/assets/index-CpwOkfn9.css">
   </head>
   <body>
@@ -180,7 +205,7 @@
     </div>
 
     <!-- ══ APP ══════════════════════════════════════════════ -->
-    <div id="app" style="opacity:0; visibility:hidden;">
+    <div id="app">
 
 
 
@@ -1483,6 +1508,21 @@
   }, { threshold: 0.35 })
 
   document.querySelectorAll('.polaroid').forEach(pol => polObserver.observe(pol))
+
+  /* ══ WRECKAGE TEXT — IntersectionObserver en vez de ScrollTrigger
+       Más confiable en móvil real: no depende del layout de GSAP      ══ */
+  const wreckageObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('wt-visible')
+        wreckageObserver.unobserve(entry.target)
+      }
+    })
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' })
+
+  document.querySelectorAll('.wh-line, .wreckage-desc, .wreckage-badge, .wreckage-cta').forEach(el => {
+    wreckageObserver.observe(el)
+  })
   </script>
 
   </body>
