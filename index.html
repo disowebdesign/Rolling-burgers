@@ -107,15 +107,13 @@
     filter: drop-shadow(0 0 18px rgba(255,59,0,0.7)) brightness(1.1);
   }
 
-  /* ══ WRECKAGE TEXT — animaciones vía IntersectionObserver
-     Los elementos arrancan invisibles y suben al entrar al viewport.
-     NO dependen de GSAP ScrollTrigger, así funcionan en móvil real. ══ */
-  .wh-line,
-  .wreckage-desc,
-  .wreckage-badge,
-  .wreckage-cta {
-    opacity: 0;
-    transform: translateY(30px);
+  /* ══ ANIMACIONES VÍA IntersectionObserver ══════════════════════
+     Reemplaza GSAP ScrollTrigger — más confiable en móvil real
+     porque no depende de medidas de layout ni del viewport cambiante. ══ */
+
+  /* Wreckage */
+  .wh-line, .wreckage-desc, .wreckage-badge, .wreckage-cta {
+    opacity: 0; transform: translateY(30px);
     transition: opacity 0.6s ease, transform 0.6s ease;
   }
   .wh-line:nth-child(2) { transition-delay: 0.1s; }
@@ -123,12 +121,95 @@
   .wreckage-desc        { transition-delay: 0.15s; }
   .wreckage-cta         { transition-delay: 0.25s; }
 
+  /* La Banda */
+  .banda-eyebrow {
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .banda-title {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity 0.6s ease, transform 0.6s ease; transition-delay: 0.12s;
+  }
+  .concert-stage-wrap {
+    opacity: 0;
+    transition: opacity 0.9s ease; transition-delay: 0.2s;
+  }
+
+  /* Nosotros */
+  .nos-sticker, .nos-manifest-label, .nos-manifest-author {
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .nos-hl-line {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+  }
+  .nos-hl-line:nth-child(2) { transition-delay: 0.1s; }
+  .nos-hl-line:nth-child(3) { transition-delay: 0.2s; }
+  .nos-body {
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease; transition-delay: 0.15s;
+  }
+  .nos-manifest-quote {
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.65s ease, transform 0.65s ease; transition-delay: 0.1s;
+  }
+  .nos-half--photo, .nos-half--photo-red {
+    opacity: 0; transform: translateX(-40px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .nos-half--text {
+    opacity: 0; transform: translateX(40px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .nos-stat {
+    opacity: 0; transform: scale(0.8);
+    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .nos-stat:nth-child(2) { transition-delay: 0.08s; }
+  .nos-stat:nth-child(3) { transition-delay: 0.16s; }
+  .nos-stat:nth-child(4) { transition-delay: 0.24s; }
+  .nos-ticker {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  /* Contáctanos */
+  .contacto-eyebrow, .contacto-subtitle {
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .contacto-subtitle { transition-delay: 0.1s; }
+  .contacto-item {
+    opacity: 0; transform: translateX(-30px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .contacto-item:nth-child(2) { transition-delay: 0.08s; }
+  .contacto-item:nth-child(3) { transition-delay: 0.16s; }
+  .contacto-item:nth-child(4) { transition-delay: 0.24s; }
+  .contacto-item:nth-child(5) { transition-delay: 0.32s; }
+  .contacto-field {
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .contacto-field:nth-child(2) { transition-delay: 0.08s; }
+  .contacto-field:nth-child(3) { transition-delay: 0.16s; }
+  .contacto-submit {
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease; transition-delay: 0.22s;
+  }
+  .contacto-map {
+    opacity: 0;
+    transition: opacity 0.8s ease; transition-delay: 0.1s;
+  }
+
+  /* Clase activadora — igual para todos los elementos animados */
   .wt-visible {
     opacity: 1 !important;
-    transform: translateY(0) !important;
+    transform: none !important;
   }
   </style>
-    <script type="module" crossorigin src="/Rolling-burgers/assets/index-DgRbRepi.js"></script>
+    <script type="module" crossorigin src="/Rolling-burgers/assets/index-DNyOCQ3_.js"></script>
     <link rel="stylesheet" crossorigin href="/Rolling-burgers/assets/index-CpwOkfn9.css">
   </head>
   <body>
@@ -1509,19 +1590,30 @@
 
   document.querySelectorAll('.polaroid').forEach(pol => polObserver.observe(pol))
 
-  /* ══ WRECKAGE TEXT — IntersectionObserver en vez de ScrollTrigger
-       Más confiable en móvil real: no depende del layout de GSAP      ══ */
-  const wreckageObserver = new IntersectionObserver((entries) => {
+  /* ══ SCROLL ANIMATIONS — IntersectionObserver global ══════════════
+     Cubre Wreckage, La Banda, Nosotros y Contáctanos.
+     Más confiable que GSAP ScrollTrigger en móvil (Safari/Chrome iOS)
+     porque no depende del viewport cambiante ni del layout post-loader. ══ */
+  const scrollObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('wt-visible')
-        wreckageObserver.unobserve(entry.target)
+        scrollObserver.unobserve(entry.target)
       }
     })
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' })
+  }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' })
 
-  document.querySelectorAll('.wh-line, .wreckage-desc, .wreckage-badge, .wreckage-cta').forEach(el => {
-    wreckageObserver.observe(el)
+  ;[
+    '.wh-line', '.wreckage-desc', '.wreckage-badge', '.wreckage-cta',
+    '.banda-eyebrow', '.banda-title', '.concert-stage-wrap',
+    '.nos-sticker', '.nos-hl-line', '.nos-body', '.nos-manifest-label',
+    '.nos-manifest-quote', '.nos-manifest-author',
+    '.nos-half--photo', '.nos-half--photo-red', '.nos-half--text',
+    '.nos-stat', '.nos-ticker',
+    '.contacto-eyebrow', '.contacto-subtitle', '.contacto-item',
+    '.contacto-field', '.contacto-submit', '.contacto-map',
+  ].forEach(sel => {
+    document.querySelectorAll(sel).forEach(el => scrollObserver.observe(el))
   })
   </script>
 
