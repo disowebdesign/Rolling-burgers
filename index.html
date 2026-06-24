@@ -16,13 +16,16 @@
      anima desde el estado inicial — causando el flash.
      Con opacity:0 en CSS el elemento arranca invisible desde el inicio. ══ */
   .nav,
-  .hero-bg-line,
   .hero-burger-wrap,
-  .hero-tag,
   .hero-copy-left,
   .hero-copy-right {
     opacity: 0;
   }
+  /* line-1 arranca en 0, line-2 arranca en 0 también pero GSAP la llevará a 0.22 */
+  .hero-bg-line { opacity: 0; }
+  /* Stickers — solo los visibles, no los ocultos con display:none */
+  .hero-tag--live,
+  .hero-tag--loud { opacity: 0; }
   #app { opacity: 0; visibility: hidden; }
   #app.is-visible { opacity: 1; visibility: visible; }
   /* ══ TOOLTIPS BANDA ══════════════════════════════════════ */
@@ -222,7 +225,7 @@
     transform: none !important;
   }
   </style>
-    <script type="module" crossorigin src="/Rolling-burgers/assets/index-CBn_WO80.js"></script>
+    <script type="module" crossorigin src="/Rolling-burgers/assets/index-CeIADl1z.js"></script>
     <link rel="stylesheet" crossorigin href="/Rolling-burgers/assets/index-CpwOkfn9.css">
   </head>
   <body>
