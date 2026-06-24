@@ -10,6 +10,19 @@
   <style>
   /* ══ APP — oculto por CSS hasta que el loader termine
      Evita el flash que causaba el inline style + GSAP autoAlpha ══ */
+
+  /* ══ HERO — estado inicial invisible ══════════════════════════
+     GSAP usa .from() que renderiza el estado final primero y luego
+     anima desde el estado inicial — causando el flash.
+     Con opacity:0 en CSS el elemento arranca invisible desde el inicio. ══ */
+  .nav,
+  .hero-bg-line,
+  .hero-burger-wrap,
+  .hero-tag,
+  .hero-copy-left,
+  .hero-copy-right {
+    opacity: 0;
+  }
   #app { opacity: 0; visibility: hidden; }
   #app.is-visible { opacity: 1; visibility: visible; }
   /* ══ TOOLTIPS BANDA ══════════════════════════════════════ */
@@ -209,7 +222,7 @@
     transform: none !important;
   }
   </style>
-    <script type="module" crossorigin src="/Rolling-burgers/assets/index-DglnZCPs.js"></script>
+    <script type="module" crossorigin src="/Rolling-burgers/assets/index-CBn_WO80.js"></script>
     <link rel="stylesheet" crossorigin href="/Rolling-burgers/assets/index-CpwOkfn9.css">
   </head>
   <body>
