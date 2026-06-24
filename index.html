@@ -15,7 +15,14 @@
      GSAP usa .from() que renderiza el estado final primero y luego
      anima desde el estado inicial — causando el flash.
      Con opacity:0 en CSS el elemento arranca invisible desde el inicio. ══ */
-  /* Hero — sin opacity:0 inicial, aparece completo al instante */
+  /* Hero — oculto hasta que GSAP lo anima (evita flash) */
+  .nav,
+  .hero-bg-line,
+  .hero-burger-wrap,
+  .hero-tag--live,
+  .hero-tag--loud,
+  .hero-copy-left,
+  .hero-copy-right { opacity: 0; }
   #app { opacity: 0; visibility: hidden; }
   #app.is-visible { opacity: 1; visibility: visible; }
   /* ══ TOOLTIPS BANDA ══════════════════════════════════════ */
@@ -215,7 +222,7 @@
     transform: none !important;
   }
   </style>
-    <script type="module" crossorigin src="/Rolling-burgers/assets/index-CqcF1I0M.js"></script>
+    <script type="module" crossorigin src="/Rolling-burgers/assets/index-DHongaiM.js"></script>
     <link rel="stylesheet" crossorigin href="/Rolling-burgers/assets/index-CpwOkfn9.css">
   </head>
   <body>
